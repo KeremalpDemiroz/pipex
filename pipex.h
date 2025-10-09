@@ -15,6 +15,7 @@ typedef struct s_list
 	char	**envp;
 	int		ac;
 	char	**commands;
+	int		err;
 }t_list;
 
 #endif
