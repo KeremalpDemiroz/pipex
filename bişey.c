@@ -7,15 +7,15 @@ int	check_files(t_list *data)
 	if (file_res < 0)
 	{
 		perror(data->av[1]);
-		(data->file_err) += 1;
+		(data->err) += 1;
 	}
 	file_res = access(data->av[(data->ac)-1], F_OK | W_OK);
 	if (file_res < 0)
 	{
 		perror(data->av[(data->ac) -1]);
-		(data->file_err) += 1;
+		(data->err) += 1;
 	}
-	if ((data->file_err) > 0)
+	if ((data->err) > 0)
 		return (-1);
 	else
 		return (0);
@@ -52,7 +52,10 @@ static void	all_free(char **split)
 
 	a = 0;
 	while (split[a])
+	{
+		ft_printf("free cmd_path[%d] : %s\n",a, split[a]);
 		free (split[a++]);
+	}
 	free (split);
 }
 
@@ -68,7 +71,7 @@ char	**path_and_cmd(t_list *data, int i, char *path)
 	combined_path = ft_split(path, ':');
 	if (!combined_path || !splited_cmd)
 	{
-		data->cmd_err += 1;
+		data->err += 1;
 		return (NULL);
 	}
 	while (combined_path[j])
@@ -77,6 +80,7 @@ char	**path_and_cmd(t_list *data, int i, char *path)
 		free(combined_path[j]);
 		combined_path[j] = ft_strjoin(joined, splited_cmd[0]);
 		free(joined);
+		ft_printf("%s\n", combined_path[j]);
 		j++;
 	}
 	all_free(splited_cmd);
@@ -96,15 +100,10 @@ void	is_cmd(t_list *data, int i, char **cmd_path)
 		}
 		j++;
 	}
-	if (data->cmd_err > 0)
-	{
-		free(data->commands[i -2]);
-		data->commands[i -2] = NULL;
-	}
 	if (!cmd_path[j])
 	{
 		ft_printf("%s: Command is not found\n", data->av[i]);
-		data->cmd_err += 1;
+		data->err += 1;
 	}
 	all_free(cmd_path);
 }
@@ -119,8 +118,8 @@ void	command_with_path(t_list *data)
 	path = choose_envp(data, "PATH=");
 	if (path == NULL)
 	{
-		data->cmd_err += 1;
-		ft_printf("PATH doesn't exist\n");
+		data->err += 1;
+		ft_printf("PATH doesn't exist.\n");
 		return ;
 	}
 	while (i <= (data->ac) -2)
@@ -140,7 +139,7 @@ int	check_commands(t_list *data)
 	data->commands = malloc(sizeof(char *) * (data->ac) -2);
 	if (!(data->commands))
 	{
-		data->cmd_err += 1;
+		data->err += 1;
 		return (-1);
 	}
 	while(i <= (data->ac) -2)
@@ -149,11 +148,8 @@ int	check_commands(t_list *data)
 		i++;
 	}
 	command_with_path(data);
-	if (data->cmd_err > 0)
-	{
-		all_free(data->commands);
+	if (data->err > 0)
 		return (-1);
-	}
 	return(0);
 }
 
@@ -162,15 +158,13 @@ int	is_args_ok(t_list *data)
 	if (data->ac < 5)
 	{
 		ft_printf("At least %d or more arguments must be entered\n", 5 - data->ac);
-		ft_printf("1 error occured\n");
-
 		return (-1);
 	}
 	check_files(data);
 	check_commands(data);
-	if (data->cmd_err + data->file_err > 0)
+	if (data->err > 0)
 	{
-		ft_printf("%d errors occured\n", data->cmd_err + data->file_err);
+		ft_printf("%d errors occured.\n", data->err);
 		return (-1);
 	}
 	return (0);
@@ -181,25 +175,11 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 	data->ac = ac;
 	data->av = av;
 	data->envp = envp;
-	data->stdin_backup = dup(0);
-	data->stdout_backup = dup(1);
-	data->file_err = 0;
-	data->cmd_err = 0;
+	data->err = 0;
 	if (is_args_ok(data) < 0)
 		return (-1);
 	else
 		return (0);
-}
-
-
-void	mother_process(t_list *data)
-{
-	int		pipe_fd[2];
-
-	pipe(pipe_fd);
-	ft_printf("in : %d === out : %d\n", data->stdin_backup, data->stdout_backup);
-	write(data->stdout_backup, "merhaba\n", 8);
-
 }
 
 int main(int ac, char **av, char **envp)
@@ -207,11 +187,7 @@ int main(int ac, char **av, char **envp)
 	t_list data;
 
 	if (create_data(&data, ac, av,envp) < 0)
-	{
 		return (0);
-	}
-	else
-		mother_process(&data);
-	all_free(data.commands);
-
+	// mother_process(&data);
+	// all_free(data.commands);
 }
