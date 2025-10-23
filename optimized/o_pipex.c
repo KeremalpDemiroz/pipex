@@ -191,15 +191,30 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 		return (0);
 }
 
+int	child_process_a(t_list data, int *pipe_fd)
+{
+	if(dup2(1, pipe_fd[1]) < 0)
+	{
+		perror("");
+		return (-1);
+	}
+	
 
-void	mother_process(t_list *data)
+
+}
+
+void	mother_process(t_list data)
 {
 	int		pipe_fd[2];
+	pid_t	p1;
+	pid_t	p2;
 
 	pipe(pipe_fd);
-	ft_printf("in : %d === out : %d\n", data->stdin_backup, data->stdout_backup);
-	write(data->stdout_backup, "merhaba\n", 8);
-
+	p1 = fork();
+	if (p1 == 0)
+		child_process_a(data, pipe_fd[2]);
+	
+		
 }
 
 int main(int ac, char **av, char **envp)
@@ -211,7 +226,7 @@ int main(int ac, char **av, char **envp)
 		return (0);
 	}
 	else
-		mother_process(&data);
+		mother_process(data);
 	all_free(data.commands);
 
 }
