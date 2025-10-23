@@ -12,8 +12,13 @@ int	check_files(t_list *data)
 	file_res = access(data->av[(data->ac)-1], F_OK | W_OK);
 	if (file_res < 0)
 	{
-		perror(data->av[(data->ac) -1]);
-		(data->file_err) += 1;
+		data->outfile_fd = open(data->av[(data->ac) -1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (data->outfile_fd < 0)
+		{
+			perror(data->av[(data->ac) -1]);
+			(data->file_err) += 1;
+		}
+		
 	}
 	if ((data->file_err) > 0)
 		return (-1);
@@ -191,19 +196,31 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 		return (0);
 }
 
-int	child_process_a(t_list data, int *pipe_fd)
+void	execute_command(char *path, char **argv, char **envp)
 {
+	execve(path, **argv, **envp);
+
+}
+
+int	child_process_a(t_list *data, int *pipe_fd)
+{
+	char	**arg_array;
+	int		i;
+
+	i = 0;
 	if(dup2(1, pipe_fd[1]) < 0)
 	{
 		perror("");
 		return (-1);
 	}
-	
+	data->infile_fd = open(data->av[1], O_RDONLY);
+	arg_array = ft_split(data->av[i + 2], " ");
+	execute_command();
 
 
 }
 
-void	mother_process(t_list data)
+void	mother_process(t_list *data)
 {
 	int		pipe_fd[2];
 	pid_t	p1;
@@ -212,7 +229,11 @@ void	mother_process(t_list data)
 	pipe(pipe_fd);
 	p1 = fork();
 	if (p1 == 0)
-		child_process_a(data, pipe_fd[2]);
+		child_process_a(&data, *pipe_fd);
+	p2 = fork();
+	if (p2 == 0)
+		child_process_b(&data, *pipe_fd);
+	waitpid(p1, )
 	
 		
 }
@@ -226,7 +247,6 @@ int main(int ac, char **av, char **envp)
 		return (0);
 	}
 	else
-		mother_process(data);
+		mother_process(&data);
 	all_free(data.commands);
-
 }
