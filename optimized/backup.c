@@ -7,15 +7,20 @@ int	check_files(t_list *data)
 	if (file_res < 0)
 	{
 		perror(data->av[1]);
-		(data->err) += 1;
+		(data->file_err) += 1;
 	}
 	file_res = access(data->av[(data->ac)-1], F_OK | W_OK);
 	if (file_res < 0)
 	{
-		perror(data->av[(data->ac) -1]);
-		(data->err) += 1;
+		data->outfile_fd = open(data->av[(data->ac) -1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (data->outfile_fd < 0)
+		{
+			perror(data->av[(data->ac) -1]);
+			(data->file_err) += 1;
+		}
+		
 	}
-	if ((data->err) > 0)
+	if ((data->file_err) > 0)
 		return (-1);
 	else
 		return (0);
@@ -68,7 +73,7 @@ char	**path_and_cmd(t_list *data, int i, char *path)
 	combined_path = ft_split(path, ':');
 	if (!combined_path || !splited_cmd)
 	{
-		data->err += 1;
+		data->cmd_err += 1;
 		return (NULL);
 	}
 	while (combined_path[j])
@@ -96,10 +101,15 @@ void	is_cmd(t_list *data, int i, char **cmd_path)
 		}
 		j++;
 	}
+	if (data->cmd_err > 0)
+	{
+		free(data->commands[i -2]);
+		data->commands[i -2] = NULL;
+	}
 	if (!cmd_path[j])
 	{
 		ft_printf("%s: Command is not found\n", data->av[i]);
-		data->err += 1;
+		data->cmd_err += 1;
 	}
 	all_free(cmd_path);
 }
@@ -114,16 +124,14 @@ void	command_with_path(t_list *data)
 	path = choose_envp(data, "PATH=");
 	if (path == NULL)
 	{
-		data->err += 1;
-		ft_printf("PATH doesn't exist.\n");
+		data->cmd_err += 1;
+		ft_printf("PATH doesn't exist\n");
 		return ;
 	}
 	while (i <= (data->ac) -2)
 	{
 		combine = path_and_cmd(data, i, path);
 		is_cmd(data, i, combine);
-		if (data->err > 0)
-			return ;
 		i++;
 	}
 }
@@ -137,7 +145,7 @@ int	check_commands(t_list *data)
 	data->commands = malloc(sizeof(char *) * (data->ac) -2);
 	if (!(data->commands))
 	{
-		data->err += 1;
+		data->cmd_err += 1;
 		return (-1);
 	}
 	while(i <= (data->ac) -2)
@@ -146,7 +154,7 @@ int	check_commands(t_list *data)
 		i++;
 	}
 	command_with_path(data);
-	if (data->err > 0)
+	if (data->cmd_err > 0)
 	{
 		all_free(data->commands);
 		return (-1);
@@ -159,13 +167,15 @@ int	is_args_ok(t_list *data)
 	if (data->ac < 5)
 	{
 		ft_printf("At least %d or more arguments must be entered\n", 5 - data->ac);
+		ft_printf("1 error occured\n");
+
 		return (-1);
 	}
 	check_files(data);
 	check_commands(data);
-	if (data->err > 0)
+	if (data->cmd_err + data->file_err > 0)
 	{
-		ft_printf("%d errors occured.\n", data->err);
+		ft_printf("%d errors occured\n", data->cmd_err + data->file_err);
 		return (-1);
 	}
 	return (0);
@@ -176,11 +186,64 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 	data->ac = ac;
 	data->av = av;
 	data->envp = envp;
-	data->err = 0;
-	if (is_args_ok(data) < 0)
-		return (-1);
-	else
+	data->stdin_backup = dup(0);
+	data->stdout_backup = dup(1);
+	data->file_err = 0;
+	data->cmd_err = 0;
+	if (is_args_ok(data) == 0)
+	{
+		data->infile_fd = open(data->av[1], O_RDONLY);
 		return (0);
+	}
+	else
+		return (-1);
+}
+
+void	execute_command(char *path, char **argv, char **envp)
+{
+	execve(path, **argv, **envp);
+
+}
+
+int	child_process(t_list *data, int pipe_fd[], int i)
+{
+	char	**arg_array;
+
+	if (i == 0)
+	{
+		dup2(0, data->infile_fd);
+		close(pipe_fd[1]);
+	}
+	else if (i == data->ac -2)
+	{
+		dup2(1, data->outfile_fd);
+		pipe_fd[1] = NULL;
+	}
+	if(i >= 0 && i < (data->ac) -2)
+		dup2(1, pipe_fd[0]);
+	if ( i> 0 && i <= (data->ac)-2)
+		dup2(0, pipe_fd[1]);
+	arg_array = ft_split(data->av[i + 2], " ");
+}
+
+void	mother_process(t_list *data)
+{
+	int		pipe_fd[2];
+	pid_t	p1;
+	int		i;
+
+	i = 0;
+	pipe(pipe_fd);
+	while (i <= (data->ac)-2)
+	{
+		if (i % 2 == 0 && i != (data->ac) -2)
+			pipe(pipe_fd);
+		p1 = fork();
+		if (p1 == 0)
+			child_process(&data, pipe_fd, i);
+		i++;
+	}
+	waitpid(-1, p1, 0);
 }
 
 int main(int ac, char **av, char **envp)
@@ -192,7 +255,6 @@ int main(int ac, char **av, char **envp)
 		return (0);
 	}
 	else
-		all_free(data.commands);
-
-	// mother_process(&data);
+		mother_process(&data);
+	all_free(data.commands);
 }
