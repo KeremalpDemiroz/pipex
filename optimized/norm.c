@@ -1,14 +1,15 @@
-int	create_data(t_list *data, int ac, char **av, char **envp)
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
 {
-	data->ac = ac;
-	data->av = av;
-	data->envp = envp;
-	data->stdin_backup = dup(0);
-	data->stdout_backup = dup(1);
-	data->file_err = 0;
-	data->cmd_err = 0;
-	if (is_args_ok(data) < 0)
-		return (-1);
-	else
-		return (0);
+	int out = open("optimized/test", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	int a = dup(1);
+	dup2(out, 1);
+	close(out);
+	write(1,"merhaba\n", 8);
+	dup2(a, 1);
+	close(a);
+	write(1, "deneme\n", 7);
 }

@@ -1,0 +1,47 @@
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/grep
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/grep
+DEBUG: path_and_cmd: trying /usr/local/sbin/grep
+DEBUG: path_and_cmd: trying /usr/local/bin/grep
+DEBUG: path_and_cmd: trying /usr/sbin/grep
+DEBUG: path_and_cmd: trying /usr/bin/grep
+DEBUG: path_and_cmd: trying /sbin/grep
+DEBUG: path_and_cmd: trying /bin/grep
+DEBUG: path_and_cmd: trying /usr/games/grep
+DEBUG: path_and_cmd: trying /usr/local/games/grep
+DEBUG: path_and_cmd: trying /snap/bin/grep
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/grep
+DEBUG: is_cmd checking: /home/kedemiro/bin/grep
+DEBUG: is_cmd checking: /home/kedemiro/bin/grep
+DEBUG: is_cmd checking: /usr/local/sbin/grep
+DEBUG: is_cmd checking: /usr/local/bin/grep
+DEBUG: is_cmd checking: /usr/sbin/grep
+DEBUG: is_cmd checking: /usr/bin/grep
+DEBUG: is_cmd selected: /usr/bin/grep for av[3]=grep foo
+DEBUG: mother_process before fork i=0 old_pipe_in=-1 pipe_fd[0]=6 pipe_fd[1]=7
+DEBUG: mother_process parent after fork i=0 new old_pipe_in=6
+DEBUG: mother_process before fork i=1 old_pipe_in=6 pipe_fd[0]=7 pipe_fd[1]=8
+DEBUG: fd_table i==0 infile_fd=5 pipe_fd[1]=7
+DEBUG: child_process execve: /usr/bin/cat args[0]=cat
+DEBUG: mother_process parent after fork i=1 new old_pipe_in=7
+DEBUG: fd_table middle i=1 old_pipe_in=6 pipe_fd[1]=8
+DEBUG: child_process execve: /usr/bin/grep args[0]=grep

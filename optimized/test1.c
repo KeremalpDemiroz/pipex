@@ -190,63 +190,88 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 	data->stdout_backup = dup(1);
 	data->file_err = 0;
 	data->cmd_err = 0;
-	if (is_args_ok(data) < 0)
-		return (-1);
-	else
-		return (0);
-}
-
-void	execute_command(char *path, char **argv, char **envp)
-{
-	execve(path, **argv, **envp);
-
-}
-
-int	child_process_a(t_list *data, int *pipe_fd)
-{
-	char	**arg_array;
-	int		i;
-
-	i = 0;
-	if(dup2(1, pipe_fd[1]) < 0)
+	if (is_args_ok(data) == 0)
 	{
-		perror("");
-		return (-1);
+		data->infile_fd = open(data->av[1], O_RDONLY);
+		return (0);
 	}
-	data->infile_fd = open(data->av[1], O_RDONLY);
-	arg_array = ft_split(data->av[i + 2], " ");
-	execute_command();
-
-
+	else
+		return (-1);
 }
 
-void	mother_process(t_list *data)
+
+void	fd_table(t_list *data,int old_pipe_in, int pipe_fd[], int i)
+{
+	if (i == 0)
+	{
+		dup2(data->infile_fd, 0);
+		dup2(pipe_fd[1], 1);
+		close(data->infile_fd);
+	}
+	else if (i == data->ac -2)
+	{
+		dup2(old_pipe_in, 0);
+		dup2(data->outfile_fd, 1);
+		close(data->outfile_fd);
+	}
+	else
+	{
+		dup2(old_pipe_in, 0);
+		dup2(pipe_fd[1], 1);
+	}
+	close(old_pipe_in);
+	close(pipe_fd[1]);
+}
+
+int	child_process(t_list *data, int i, char **arg_array)
+{
+	execve(data->commands[i], arg_array, data->envp);
+	perror("execve failure");
+	exit(EXIT_FAILURE);
+}
+
+void	mother_process(t_list *data,int i)
 {
 	int		pipe_fd[2];
+	int		old_pipe_in;
 	pid_t	p1;
-	pid_t	p2;
+	char	**arg_array;
 
-	pipe(pipe_fd);
-	p1 = fork();
-	if (p1 == 0)
-		child_process_a(&data, *pipe_fd);
-	p2 = fork();
-	if (p2 == 0)
-		child_process_b(&data, *pipe_fd);
-	waitpid(p1, );
-	
-		
+	i = 0;
+	old_pipe_in = -1;
+	while (i <= data->ac -3)
+	{
+		if (!(i == data->ac -3))
+			pipe(pipe_fd);
+		p1 = fork();
+		if (p1 == 0)
+		{
+			arg_array = ft_split(data->av[i+2], ' ');
+			if (!arg_array)
+				return ;
+			fd_table(data,old_pipe_in, pipe_fd, i);
+			child_process(data, i ,arg_array);
+			all_free(arg_array);
+		}
+		close(pipe_fd);
+		old_pipe_in = pipe_fd[0];
+		i++;
+	}
+	while (--i >= 0)
+		wait(NULL);
 }
 
 int main(int ac, char **av, char **envp)
 {
-	t_list data;
+	t_list	data;
+	int		i;
 
+	i = 0;
 	if (create_data(&data, ac, av,envp) < 0)
 	{
 		return (0);
 	}
 	else
-		mother_process(&data);
+		mother_process(&data, i);
 	all_free(data.commands);
 }

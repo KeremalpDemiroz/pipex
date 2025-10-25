@@ -1,0 +1,70 @@
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/ls
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/ls
+DEBUG: path_and_cmd: trying /usr/local/sbin/ls
+DEBUG: path_and_cmd: trying /usr/local/bin/ls
+DEBUG: path_and_cmd: trying /usr/sbin/ls
+DEBUG: path_and_cmd: trying /usr/bin/ls
+DEBUG: path_and_cmd: trying /sbin/ls
+DEBUG: path_and_cmd: trying /bin/ls
+DEBUG: path_and_cmd: trying /usr/games/ls
+DEBUG: path_and_cmd: trying /usr/local/games/ls
+DEBUG: path_and_cmd: trying /snap/bin/ls
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/ls
+DEBUG: is_cmd checking: /home/kedemiro/bin/ls
+DEBUG: is_cmd checking: /home/kedemiro/bin/ls
+DEBUG: is_cmd checking: /usr/local/sbin/ls
+DEBUG: is_cmd checking: /usr/local/bin/ls
+DEBUG: is_cmd checking: /usr/sbin/ls
+DEBUG: is_cmd checking: /usr/bin/ls
+DEBUG: is_cmd selected: /usr/bin/ls for av[2]=ls
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/wc
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/wc
+DEBUG: path_and_cmd: trying /usr/local/sbin/wc
+DEBUG: path_and_cmd: trying /usr/local/bin/wc
+DEBUG: path_and_cmd: trying /usr/sbin/wc
+DEBUG: path_and_cmd: trying /usr/bin/wc
+DEBUG: path_and_cmd: trying /sbin/wc
+DEBUG: path_and_cmd: trying /bin/wc
+DEBUG: path_and_cmd: trying /usr/games/wc
+DEBUG: path_and_cmd: trying /usr/local/games/wc
+DEBUG: path_and_cmd: trying /snap/bin/wc
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/wc
+DEBUG: is_cmd checking: /home/kedemiro/bin/wc
+DEBUG: is_cmd checking: /home/kedemiro/bin/wc
+DEBUG: is_cmd checking: /usr/local/sbin/wc
+DEBUG: is_cmd checking: /usr/local/bin/wc
+DEBUG: is_cmd checking: /usr/sbin/wc
+DEBUG: is_cmd checking: /usr/bin/wc
+DEBUG: is_cmd selected: /usr/bin/wc for av[3]=wc -l
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[4]=cat
+DEBUG: mother_process before fork i=0 old_pipe_in=-1 pipe_fd[0]=7 pipe_fd[1]=8
+DEBUG: mother_process parent after fork i=0 new old_pipe_in=7
+DEBUG: mother_process before fork i=1 old_pipe_in=7 pipe_fd[0]=8 pipe_fd[1]=9
+DEBUG: fd_table i==0 infile_fd=6 pipe_fd[1]=8
+DEBUG: child_process execve: /usr/bin/ls args[0]=ls
+DEBUG: mother_process parent after fork i=1 new old_pipe_in=8
+DEBUG: mother_process before fork i=2 old_pipe_in=8 pipe_fd[0]=9 pipe_fd[1]=10
+DEBUG: fd_table middle i=1 old_pipe_in=7 pipe_fd[1]=9
+DEBUG: child_process execve: /usr/bin/wc args[0]=wc
+DEBUG: mother_process parent after fork i=2 new old_pipe_in=9
+DEBUG: fd_table last i=2 old_pipe_in=8 outfile_fd=5
+DEBUG: child_process execve: /usr/bin/cat args[0]=cat

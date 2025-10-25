@@ -1,0 +1,139 @@
+Test summary
+--- Test 1 ---
+infile: tests/infile1.txt
+outfile: tests/out1.txt
+exit: 0
+stderr (first 20 lines):
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+outfile (first 20 lines):
+6
+--- Test 2 ---
+infile: tests/infile2.txt
+outfile: tests/out2.txt
+exit: 0
+stderr (first 20 lines):
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+outfile (first 20 lines):
+2
+--- Test 3 ---
+infile: tests/infile3.txt
+outfile: tests/out3.txt
+exit: 0
+stderr (first 20 lines):
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+outfile (first 20 lines):
+OOF
+OOF
+OOF
+--- Test 4 ---
+infile: tests/infile4.txt
+outfile: tests/out4.txt
+exit: 0
+stderr (first 20 lines):
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+outfile (first 20 lines):
+--- Test 5 ---
+infile: tests/infile5.txt
+outfile: tests/out5.txt
+exit: 0
+stderr (first 20 lines):
+DEBUG: choose_envp found: PATH=/home/kedemiro/bin:/home/kedemiro/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/bin/cat
+DEBUG: path_and_cmd: trying /usr/local/sbin/cat
+DEBUG: path_and_cmd: trying /usr/local/bin/cat
+DEBUG: path_and_cmd: trying /usr/sbin/cat
+DEBUG: path_and_cmd: trying /usr/bin/cat
+DEBUG: path_and_cmd: trying /sbin/cat
+DEBUG: path_and_cmd: trying /bin/cat
+DEBUG: path_and_cmd: trying /usr/games/cat
+DEBUG: path_and_cmd: trying /usr/local/games/cat
+DEBUG: path_and_cmd: trying /snap/bin/cat
+DEBUG: path_and_cmd: trying /home/kedemiro/.config/Code/User/globalStorage/github.copilot-chat/debugCommand/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /home/kedemiro/bin/cat
+DEBUG: is_cmd checking: /usr/local/sbin/cat
+DEBUG: is_cmd checking: /usr/local/bin/cat
+DEBUG: is_cmd checking: /usr/sbin/cat
+DEBUG: is_cmd checking: /usr/bin/cat
+DEBUG: is_cmd selected: /usr/bin/cat for av[2]=cat
+outfile (first 20 lines):
+F
+F
+F
