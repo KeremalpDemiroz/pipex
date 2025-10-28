@@ -1,5 +1,0 @@
-x
-foo
-foo
-foo
-y

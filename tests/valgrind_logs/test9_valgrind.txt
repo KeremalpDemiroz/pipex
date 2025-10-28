@@ -1,0 +1,15 @@
+==145307== Memcheck, a memory error detector
+==145307== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==145307== Using Valgrind-3.25.1 and LibVEX; rerun with -h for copyright info
+==145307== Command: /home/kedemiro/Desktop/pipex_git/a.out /home/kedemiro/Desktop/pipex_git/tests/infiles/infile1.txt cat nl wc\ -l /home/kedemiro/Desktop/pipex_git/tests/outfile/outfile9.txt
+==145307== Parent PID: 145001
+==145307== 
+==145307== 
+==145307== HEAP SUMMARY:
+==145307==     in use at exit: 0 bytes in 0 blocks
+==145307==   total heap usage: 104 allocs, 104 frees, 2,301 bytes allocated
+==145307== 
+==145307== All heap blocks were freed -- no leaks are possible
+==145307== 
+==145307== For lists of detected and suppressed errors, rerun with: -s
+==145307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

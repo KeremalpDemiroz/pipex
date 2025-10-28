@@ -1,8 +1,0 @@
-one
-foo
-bar
-foo
-baz
-foo
-nothing
-foo
