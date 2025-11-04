@@ -9,7 +9,7 @@ int	check_files(t_list *data)
 		perror(data->av[1]);
 		(data->file_err) += 1;
 	}
-	if (data->file_err == 0)
+	if (data->file_err == 0 && data->cmd_err == 0)
 	{
 		data->outfile_fd = open(data->av[(data->ac) -1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (data->outfile_fd < 0)
@@ -206,7 +206,6 @@ void	fd_table(t_list *data,int old_pipe_in, int pipe_fd[], int i)
 {
 	if (i == 2)
 	{
-		ft_printf("i == 0 : %d\n", i);
 		dup2(data->infile_fd, 0);
 		dup2(pipe_fd[1], 1);
 		close(data->infile_fd);
@@ -226,8 +225,7 @@ void	fd_table(t_list *data,int old_pipe_in, int pipe_fd[], int i)
 		close(old_pipe_in);
 	close(pipe_fd[1]);
 }
-
-int	child_process(t_list *data, int i)
+int execute_command(t_list *data, int i)
 {
 	data->cmd_split = ft_split(data->av[i+2], ' ');
 	if (!data->cmd_split)
@@ -235,9 +233,23 @@ int	child_process(t_list *data, int i)
 	execve(data->commands[i], data->cmd_split, data->envp);
 	perror("execve failure");
 	all_free(data->cmd_split);
+	all_free(data->commands);
 	exit(EXIT_FAILURE);
 }
 
+void	child_process(t_list *data, int i, int old_pipe_in, int pipe_fd[])
+{
+	fd_table(data,old_pipe_in, pipe_fd, i+2);
+	execute_command(data, i);
+	all_free(data->cmd_split);
+}
+
+void pid_error(int pipe_fd[])
+{
+	perror("fork error");
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+}
 
 void	mother_process(t_list *data,int i)
 {
@@ -250,26 +262,13 @@ void	mother_process(t_list *data,int i)
 	while (data->commands[i])
 	{
 		if (pipe(pipe_fd) == -1)
-		{
-			perror ("pipe error");
-			return ;
-		}
+			return (perror ("pipe error"));	
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork error");
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			return ;
-		}
+			return (pid_error(pipe_fd));	
 		if (pid == 0)
-		{
-			fd_table(data,old_pipe_in, pipe_fd, i+2);
-			child_process(data, i);
-			all_free(data->cmd_split);
-		}
+			child_process(data, i, old_pipe_in, pipe_fd);
 		close(pipe_fd[1]);
-
 		old_pipe_in = pipe_fd[0];
 		i++;
 	}

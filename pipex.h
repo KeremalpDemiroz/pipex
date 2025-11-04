@@ -1,5 +1,5 @@
-#ifndef PIPEX
-# define PIPEX
+#ifndef PIPEX_H
+# define PIPEX_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -8,10 +8,10 @@
 
 typedef struct s_list
 {
-	int		stdin_backup;	// dup(0);
-	int		stdout_backup;	// dup(1);
-	int		infile_fd;		// open(av[1], o_RDONLY)
-	int		outfile_fd;		// open(av[ac -1], o_WRONLY)
+	int		stdin_backup;
+	int		stdout_backup;
+	int		infile_fd;
+	int		outfile_fd;
 	char	**av;
 	char	**envp;
 	int		ac;
@@ -19,11 +19,21 @@ typedef struct s_list
 	char	**cmd_split;
 	int		file_err;
 	int		cmd_err;
-}t_list;
+}	t_list;
+
+char	*choose_envp(t_list *data, const char *wanted);
+char	**path_and_cmd(t_list *data, int i, char *path);
+int		check_files(t_list *data);
+int		check_commands(t_list *data);
+int		is_args_ok(t_list *data);
+int		create_data(t_list *data, int ac, char **av, char **envp);
+int		execute_command(t_list *data, int i);
+void	all_free(char **split);
+void	is_cmd(t_list *data, int i, char **cmd_path);
+void	command_with_path(t_list *data);
+void	fd_table(t_list *data, int old_pipe_in, int pipe_fd[], int i);
+void	child_process(t_list *data, int i, int old_pipe_in, int pipe_fd[]);
+void	pid_error(int pipe_fd[]);
+void	mother_process(t_list *data, int i);
 
 #endif
-
-/*
-
-	(dup2(0,infile_fd)) ->execve(get_path, av[2], envp) -> (0, NULL)_pipe_(NULL, 1)-> execve -> outfile_fd
-*/
