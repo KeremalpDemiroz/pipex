@@ -41,6 +41,10 @@ SRCS =	ft_isalpha.c\
 		./ft_printf/ft_puts.c\
 		./ft_printf/ft_printf.c
 
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	
 OBJC=$(SRCS:.c=.o)
 all:$(NAME)
 $(NAME):$(OBJC)

@@ -1,36 +1,32 @@
-NAME = pipex
+NAME=pipex
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+all:
+	make -C mandatory
 
-SRCS =	
-
-OBJC=$(SRCS:.c=.o)
-
-all:$(NAME)
-$(NAME):$(OBJC)
-	ar rcs $(NAME) $(OBJC)
+bonus:
+	make -C bonus
 
 clean:
-	rm -rf $(OBJC)
+	@make clean -C mandatory
 
-fclean:clean
-	rm -rf $(NAME)
 
-re:fclean all
+bclean:
+	@make clean -C bonus
 
-cc: 
-	$(CC) $(CFLAGS) $(NAME)
+fclean:
+	@make fclean -C mandatory
 
-norm:
-	norminette $(SRCS)
 
-run:all clean
-	clear
-	@$(CC) $(CFLAGS) main.c $(NAME)
-	@./a.out
+bfclean:
+	@make fclean -C bonus
 
-test: ## Run full test suite (regenerate expected outputs and run tests)
-	@./tests/run_master.sh
 
-.PHONY: all clean fclean re norm run cc 
+re:
+	@make re -C mandatory
+	
+
+bre:
+	@make re -C bonus
+	
+
+.PHONY: all clean fclean re bonus bclean bfclean bre
