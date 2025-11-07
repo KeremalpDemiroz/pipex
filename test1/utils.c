@@ -96,6 +96,7 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 	data->stdout_backup = dup(1);
 	data->stdin_backup = dup(0);
 	data->cmd_split = NULL;
+	data->dev_null = open("/dev/null", O_RDONLY);
 	if (is_args_ok(data) == 0)
 	{
 		data->infile_fd = open(data->av[1], O_RDONLY);

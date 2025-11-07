@@ -20,17 +20,17 @@ all:$(NAME)
 $(NAME):$(OBJS)
 	@make -C $(LIBFT)
 	$(CC) $(CFLAGS) $(SRCS) $(LIBFT_A) -o $(NAME)
-
+	clear
 
 clean:
 	@rm -rf $(OBJS)
 	@make clean -C $(LIBFT)
-
+	clear
 
 fclean:clean
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT)
-
+	clear
 
 re: fclean all
 

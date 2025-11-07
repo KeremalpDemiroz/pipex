@@ -24,6 +24,7 @@ typedef struct s_list
 	int		stdout_backup;
 	int		infile_fd;
 	int		outfile_fd;
+	int		dev_null;
 	char	**av;
 	char	**envp;
 	int		ac;

@@ -38,17 +38,15 @@ void	fd_table(t_list *data, int old_pipe_in, int pipe_fd[], int i)
 
 int	execute_command(t_list *data, int i)
 {
+	if (data->file_err > 0)
+		exit (EXIT_FAILURE);
 	data->cmd_split = ft_split(data->av[i], ' ');
 	if (!data->cmd_split)
 	{
 		all_free(data->commands);
 		exit (EXIT_FAILURE);
 	}
-	// write(data->stdout_backup, "split:\n", 7);
-	// ft_putendl_fd(data->cmd_split[0], data->stdout_backup);
-	// write(data->stdout_backup, "=====\n", 6);
-	// ft_putendl_fd(data->commands[i], data->stdout_backup);
-	execve(data->commands[i-2], data->cmd_split, data->envp);
+	execve(data->commands[i - 2], data->cmd_split, data->envp);
 	if (i == data->ac - 2)
 	{
 		perror("execve failure");
@@ -59,12 +57,6 @@ int	execute_command(t_list *data, int i)
 	else
 		exit(EXIT_FAILURE);
 }
-
-/*
-	a.out infile cmd cmd outfile
-	cmd cmd NULL;
-
-*/
 
 void	child_process(t_list *data, int i, int old_pipe_in, int pipe_fd[])
 {
@@ -83,7 +75,6 @@ void	mother_process(t_list *data, int i)
 	old_pipe_in = -1;
 	while (i <= (data->ac) - 2)
 	{
-
 		if (pipe(pipe_fd) == -1)
 			return (perror ("pipe error"));
 		pid = fork();

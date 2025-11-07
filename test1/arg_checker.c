@@ -43,6 +43,11 @@ void	is_cmd(t_list *data, int i, char **cmd_path)
 	int		j;
 
 	j = 0;
+	if (!cmd_path)
+	{
+		ft_printf("%s: Command is not found\n", data->av[i]);
+		return ;
+	}
 	while (cmd_path[j])
 	{
 		if (access(cmd_path[j], F_OK | X_OK) == 0)
@@ -79,15 +84,14 @@ void	command_with_path(t_list *data)
 		combine = path_and_cmd(data, i, path);
 		if (!combine)
 			data->cmd_err += 1;
-		else
-			is_cmd(data, i, combine);
+		is_cmd(data, i, combine);
 		i++;
 	}
 }
 
 void	check_commands(t_list *data)
 {
-	data->commands = ft_calloc(1, (data->ac) - 2);
+	data->commands = ft_calloc((data->ac) - 2, sizeof(char *));
 	if (!(data->commands))
 	{
 		data->cmd_err += 1;
@@ -101,15 +105,16 @@ int	is_args_ok(t_list *data)
 {
 	if (data->ac < 5)
 	{
-		ft_printf("%d or more arguments must be entered\n", 5 - data->ac);
-		ft_printf("1 error occured\n");
+		ft_putnbr_fd(5 - data->ac, 2);
+		ft_putendl_fd(" or more arguments must be entered\n1 error occured", 2);
 		return (-1);
 	}
 	check_files(data);
 	check_commands(data);
 	if (data->file_err > 0)
 	{
-		ft_printf("%d errors occured\n", data->file_err);
+		ft_putnbr_fd(data->file_err + data->cmd_err, 2);
+		ft_putendl_fd(" errors occured", 2);
 		return (-1);
 	}
 	return (0);

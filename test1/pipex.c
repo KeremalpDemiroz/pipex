@@ -39,4 +39,9 @@ int	main(int ac, char **av, char **envp)
 	else
 		mother_process(&data, i);
 	n_free(data.commands, ac -4);
+	if (data.cmd_err > 0)
+	{
+		ft_putnbr_fd(data.cmd_err + data.file_err, 2);
+		ft_putendl_fd(" error occured", 2);
+	}
 }
