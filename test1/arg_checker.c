@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-int	check_files(t_list *data)
+void	check_files(t_list *data)
 {
 	int	file_res;
 
@@ -20,22 +20,19 @@ int	check_files(t_list *data)
 	if (file_res < 0)
 	{
 		perror(data->av[1]);
+		data->infile_fd = open("/dev/null", O_RDONLY);
 		(data->file_err) += 1;
 	}
-	if (data->file_err == 0 && data->cmd_err == 0)
-	{
-		data->outfile_fd = open(data->av[(data->ac) - 1], O_CREAT
-				| O_WRONLY | O_TRUNC, 0644);
-		if (data->outfile_fd < 0)
-		{
-			perror(data->av[(data->ac) - 1]);
-			(data->file_err) += 1;
-		}
-	}
-	if ((data->file_err) > 0)
-		return (-1);
 	else
-		return (0);
+		data->infile_fd = open(data->av[1], O_RDONLY);
+	data->outfile_fd = open(data->av[(data->ac) - 1], O_CREAT
+			| O_WRONLY | O_TRUNC, 0644);
+	if (data->outfile_fd < 0)
+	{
+		perror(data->av[(data->ac) - 1]);
+		(data->file_err) += 1;
+		exit (EXIT_FAILURE);
+	}
 }
 
 void	is_cmd(t_list *data, int i, char **cmd_path)

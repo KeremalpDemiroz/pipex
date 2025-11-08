@@ -36,10 +36,10 @@ typedef struct s_list
 
 char	*choose_envp(t_list *data, const char *wanted);
 char	**path_and_cmd(t_list *data, int i, char *path);
-int		check_files(t_list *data);
+void	check_files(t_list *data);
 int		is_args_ok(t_list *data);
-int		create_data(t_list *data, int ac, char **av, char **envp);
 int		execute_command(t_list *data, int i);
+void	create_data(t_list *data, int ac, char **av, char **envp);
 void	check_commands(t_list *data);
 void	all_free(char **split);
 void	is_cmd(t_list *data, int i, char **cmd_path);

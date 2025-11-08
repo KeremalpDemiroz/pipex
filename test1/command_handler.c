@@ -38,8 +38,6 @@ void	fd_table(t_list *data, int old_pipe_in, int pipe_fd[], int i)
 
 int	execute_command(t_list *data, int i)
 {
-	if (data->file_err > 0)
-		exit (EXIT_FAILURE);
 	data->cmd_split = ft_split(data->av[i], ' ');
 	if (!data->cmd_split)
 	{

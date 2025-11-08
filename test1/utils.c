@@ -86,7 +86,7 @@ void	pid_error(int pipe_fd[])
 	close(pipe_fd[1]);
 }
 
-int	create_data(t_list *data, int ac, char **av, char **envp)
+void	create_data(t_list *data, int ac, char **av, char **envp)
 {
 	data->ac = ac;
 	data->av = av;
@@ -96,12 +96,5 @@ int	create_data(t_list *data, int ac, char **av, char **envp)
 	data->stdout_backup = dup(1);
 	data->stdin_backup = dup(0);
 	data->cmd_split = NULL;
-	data->dev_null = open("/dev/null", O_RDONLY);
-	if (is_args_ok(data) == 0)
-	{
-		data->infile_fd = open(data->av[1], O_RDONLY);
-		return (0);
-	}
-	else
-		return (-1);
+	is_args_ok(data);
 }
