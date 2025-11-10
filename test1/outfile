@@ -1,0 +1,13 @@
+total 68$
+-rw-rw-r-- 1 kedemiro kedemiro  2828 Nov  8 15:57 arg_checker.c$
+-rw-rw-r-- 1 kedemiro kedemiro  4144 Nov 10 23:46 arg_checker.o$
+-rw-rw-r-- 1 kedemiro kedemiro  2348 Nov  8 15:51 command_handler.c$
+-rw-rw-r-- 1 kedemiro kedemiro  3416 Nov 10 23:46 command_handler.o$
+-rw-rw-r-- 1 kedemiro kedemiro   496 Nov  8 03:45 Makefile$
+-rw-r--r-- 1 kedemiro kedemiro     0 Nov 10 23:47 outfile$
+-rwxrwxr-x 1 kedemiro kedemiro 22536 Nov 10 23:46 pipex$
+-rw-rw-r-- 1 kedemiro kedemiro  1348 Nov  8 15:44 pipex.c$
+-rw-rw-r-- 1 kedemiro kedemiro  1904 Nov  8 15:50 pipex.h$
+-rw-rw-r-- 1 kedemiro kedemiro  1928 Nov 10 23:46 pipex.o$
+-rw-rw-r-- 1 kedemiro kedemiro  2344 Nov  8 15:50 utils.c$
+-rw-rw-r-- 1 kedemiro kedemiro  3272 Nov 10 23:46 utils.o$
