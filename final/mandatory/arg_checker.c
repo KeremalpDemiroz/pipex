@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 21:06:47 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/11/06 20:15:07 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/11/12 18:59:09 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	is_cmd(t_list *data, int i, char **cmd_path)
 	j = 0;
 	if (!cmd_path)
 	{
-		ft_printf("%s: Command is not found\n", data->av[i]);
+		ft_putstr_fd(data->av[i], 2);
+		ft_putendl_fd(": Command is not found", 2);
 		return ;
 	}
 	while (cmd_path[j])
@@ -56,7 +57,8 @@ void	is_cmd(t_list *data, int i, char **cmd_path)
 	}
 	if (!cmd_path[j])
 	{
-		ft_printf("%s: Command is not found\n", data->av[i]);
+		ft_putstr_fd(data->av[i], 2);
+		ft_putendl_fd(": Command is not found", 2);
 		data->cmd_err += 1;
 	}
 	all_free(cmd_path);
@@ -92,7 +94,8 @@ void	check_commands(t_list *data)
 	if (!(data->commands))
 	{
 		data->cmd_err += 1;
-		ft_printf("%d error occured\n", data->cmd_err);
+		ft_putnbr_fd(data->cmd_err, 2);
+		ft_putendl_fd(" error occured", 2);
 		exit(EXIT_FAILURE);
 	}
 	command_with_path(data);
@@ -109,10 +112,6 @@ int	is_args_ok(t_list *data)
 	check_files(data);
 	check_commands(data);
 	if (data->file_err > 0)
-	{
-		ft_putnbr_fd(data->file_err + data->cmd_err, 2);
-		ft_putendl_fd(" errors occured", 2);
 		return (-1);
-	}
 	return (0);
 }

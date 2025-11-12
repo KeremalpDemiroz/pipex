@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 21:04:55 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/11/12 17:59:39 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:06:18 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int	main(int ac, char **av, char **envp)
 	int		i;
 
 	i = 0;
+	if (ac <= 5)
+	{
+		ft_putendl_fd("the number of arguments must be more than 5", 2);
+		exit(EXIT_FAILURE);
+	}
 	create_data(&data, ac, av, envp);
 	mother_process(&data, i);
 	n_free(data.commands, ac -4);

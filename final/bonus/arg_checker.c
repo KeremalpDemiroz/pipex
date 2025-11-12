@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 21:06:47 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/11/06 20:15:07 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:07:24 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,6 @@ int	is_args_ok(t_list *data)
 	check_files(data);
 	check_commands(data);
 	if (data->file_err > 0)
-	{
-		ft_putnbr_fd(data->file_err + data->cmd_err, 2);
-		ft_putendl_fd(" errors occured", 2);
 		return (-1);
-	}
 	return (0);
 }
