@@ -81,6 +81,8 @@ void	mother_process(t_list *data, int i)
 		if (pid == 0)
 			child_process(data, i, old_pipe_in, pipe_fd);
 		close(pipe_fd[1]);
+		if (old_pipe_in != -1)
+			close(old_pipe_in);
 		old_pipe_in = pipe_fd[0];
 		i++;
 	}

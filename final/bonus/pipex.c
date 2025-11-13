@@ -43,4 +43,6 @@ int	main(int ac, char **av, char **envp)
 		ft_putnbr_fd(data.cmd_err + data.file_err, 2);
 		ft_putendl_fd(" error occured", 2);
 	}
+	close(data.infile_fd);
+	close(data.outfile_fd);
 }
